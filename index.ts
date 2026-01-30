@@ -27,12 +27,11 @@ async function convert() {
     console.log(`Found ${payloads.length} rules. Converting...`);
     // 准备文件头部信息
     const header = [
+      `#!name=Adobe Block List for Shadowrocket`,
+      `#!desc=a set of Shadowrocket rules designed to automatically block Adobe telemetry.`,
       `# Adobe Block List for Shadowrocket`,
       `# Source: ${SOURCE_URL}`,
       `# Updated: ${new Date().toUTCString()}`,
-      `#!name=Adobe Block List for Shadowrocket`,
-      `#!desc=a set of Shadowrocket rules designed to automatically block Adobe telemetry.
-      `,
       ``, // 空行
       ``, // 空行
       `[Rule]`,
