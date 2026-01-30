@@ -30,6 +30,12 @@ async function convert() {
       `# Adobe Block List for Shadowrocket`,
       `# Source: ${SOURCE_URL}`,
       `# Updated: ${new Date().toUTCString()}`,
+      `#!name=Adobe Block List for Shadowrocket`,
+      `#!desc=a set of Shadowrocket rules designed to automatically block Adobe telemetry.
+      `,
+      ``, // 空行
+      ``, // 空行
+      `[Rule]`,
       ``, // 空行
     ].join("\n");
     // 转换规则
@@ -39,6 +45,7 @@ async function convert() {
       .filter((rule) => rule && rule.trim().length > 0)
       .map((rule) => `${rule.trim()},REJECT`)
       .join("\n");
+
     const finalContent = `${header}\n${rules}`;
     // 写入文件
     fs.writeFileSync(OUTPUT_FILE, finalContent, "utf-8");
