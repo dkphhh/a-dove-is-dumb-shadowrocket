@@ -1,0 +1,28 @@
+name: Update Rules
+on:
+  schedule:
+    # 每天国际标准时间 04:00 运行
+    - cron: "0 4 * * *"
+  workflow_dispatch: # 允许手动触发
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install
+      - name: Run conversion script
+        run: bun index.ts
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add adobe-reject.conf
+          # 只有当文件发生变化时才提交
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update rules " && git push)
